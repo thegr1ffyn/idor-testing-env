@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  web:
+    build: 
+      context: ./src
+    ports:
+      - "8083:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./uploads:/var/www/html/uploads
+      - php-sessions:/var/lib/php/sessions
+    environment:
+      - PHP_SESSION_SAVE_PATH=/var/lib/php/sessions
+    depends_on:
+      - database
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/80' || exit 1
+      timeout: 1s
+      retries: 5
+      interval: 10s
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: SecurePass123
+      MYSQL_DATABASE: docmanager
+      MYSQL_USER: webuser
+      MYSQL_PASSWORD: WebPass123
+    volumes:
+      - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+
+volumes:
+  php-sessions:
+    driver: local
+  mysql-data:
+    driver: local 

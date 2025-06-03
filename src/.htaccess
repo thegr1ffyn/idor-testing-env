@@ -1,0 +1,49 @@
+RewriteEngine On
+RewriteBase /
+
+# Document routes
+RewriteRule ^documents/([0-9]+)/view/?$ view_document.php?id=$1 [L,QSA]
+RewriteRule ^documents/([0-9]+)/download/?$ download_document.php?id=$1 [L,QSA]
+RewriteRule ^documents/([0-9]+)/edit/?$ edit_document.php?id=$1 [L,QSA]
+
+# Order routes
+RewriteRule ^orders/([0-9]+)/view/?$ view_order.php?id=$1 [L,QSA]
+RewriteRule ^orders/([0-9]+)/invoice/?$ download_invoice.php?order_id=$1 [L,QSA]
+RewriteRule ^orders/([0-9]+)/edit/?$ edit_order.php?id=$1 [L,QSA]
+
+# Profile routes
+RewriteRule ^profiles/([0-9]+)/view/?$ view_profile.php?id=$1 [L,QSA]
+RewriteRule ^profiles/([0-9]+)/edit/?$ edit_profile.php?id=$1 [L,QSA]
+
+# Message routes
+RewriteRule ^messages/([0-9]+)/view/?$ view_message.php?id=$1 [L,QSA]
+RewriteRule ^messages/([0-9]+)/reply/?$ reply_message.php?id=$1 [L,QSA]
+RewriteRule ^messages/([0-9]+)/delete/?$ delete_message.php?id=$1 [L,QSA]
+
+# Report routes
+RewriteRule ^reports/([0-9]+)/view/?$ view_report.php?id=$1 [L,QSA]
+RewriteRule ^reports/([0-9]+)/download/?$ download_report.php?id=$1 [L,QSA]
+RewriteRule ^reports/([0-9]+)/edit/?$ edit_report.php?id=$1 [L,QSA]
+
+# API routes
+RewriteRule ^api/users/([0-9]+)/?$ api.php?action=get_user_profile&id=$1 [L,QSA]
+RewriteRule ^api/users/([0-9]+)/documents/?$ api.php?action=list_user_documents&id=$1 [L,QSA]
+RewriteRule ^api/users/([0-9]+)/orders/?$ api.php?action=list_user_orders&id=$1 [L,QSA]
+RewriteRule ^api/users/([0-9]+)/messages/?$ api.php?action=list_user_messages&id=$1 [L,QSA]
+RewriteRule ^api/users/([0-9]+)/data/?$ api.php?action=list_user_data&id=$1 [L,QSA]
+
+# Admin API routes
+RewriteRule ^admin/users/([0-9]+)/reset-password/?$ admin.php?action=reset_password&user_id=$1 [L,QSA]
+RewriteRule ^admin/users/([0-9]+)/make-admin/?$ admin.php?action=make_admin&user_id=$1 [L,QSA]
+RewriteRule ^admin/users/([0-9]+)/delete/?$ admin.php?action=delete_user&user_id=$1 [L,QSA]
+RewriteRule ^admin/users/([0-9]+)/view-data/?$ admin.php?action=view_data&user_id=$1 [L,QSA]
+
+# Collection routes with filters
+RewriteRule ^documents/user/([0-9]+)/?$ documents.php?user_id=$1 [L,QSA]
+RewriteRule ^orders/user/([0-9]+)/?$ orders.php?user_id=$1 [L,QSA]
+RewriteRule ^messages/user/([0-9]+)/?$ messages.php?user_id=$1 [L,QSA]
+RewriteRule ^reports/author/([0-9]+)/?$ reports.php?author_id=$1 [L,QSA]
+
+# Handle trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ $1 [R=301,L] 
