@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Enable PHP processing for all files
+AddHandler application/x-httpd-php .php
+
+# Route the API endpoint to api.php for JSON responses
+RewriteRule ^api/v1/report/([a-f0-9-]+)/view/?$ api.php?report_id=$1 [L,QSA]
+
+# Default document
+DirectoryIndex index.php dashboard.php 
