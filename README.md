@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DocManager Pro - IDOR Testing Environment
 
 A comprehensive web application designed for testing **Insecure Direct Object Reference (IDOR)** vulnerabilities using modern RESTful URL patterns. This environment simulates a corporate document management system with intentional security flaws for educational and testing purposes.
@@ -311,3 +312,6 @@ For questions or issues, check the application logs:
 ```bash
 docker-compose logs -f
 ``` 
+=======
+# idor-testing-env
+>>>>>>> f69d9ed2ac88b4b50ba0ceb80935e878fe0ec32e
